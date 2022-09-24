@@ -7,7 +7,7 @@ scrollToTop = () => {
         event.preventDefault();
         console.log('event: ', event);
 
-        /* работает не кроссбраузерно
+        /* работает не кроссбраузерно        
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
