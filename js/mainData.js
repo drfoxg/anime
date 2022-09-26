@@ -1,6 +1,8 @@
 
 const mainData = () => {
 
+    const preloder = document.querySelector('.preloder');
+
     const renderGanreList = (ganres) => {
         const dropdownBlock = document.querySelector('.header__menu .dropdown');
 
@@ -74,6 +76,7 @@ const mainData = () => {
             wrapper.append(productBlock);
 
             bgElements('.set-bg', wrapper);
+
         })
 
     }
@@ -89,7 +92,7 @@ const mainData = () => {
                 <div class="product__sidebar__view__item set-bg mix" data-setbg="${item.image}">
                     <div class="ep">${item.rating} / 10</div>
                     <div class="view"><i class="fa fa-eye"></i> ${item.views}</div>
-                    <h5><a href="/anime-details.html">${item.title}</a></h5>
+                    <h5><a href="/anime-details.html?itemId=${item.id}">${item.title}</a></h5>
                 </div>              
             `);
 
@@ -112,8 +115,12 @@ const mainData = () => {
             // вывод первых 5 самых просматриваемых аниме на основе значения views
             renderTopAnime(anime.sort((a, b) => b.views - a.views).slice(0, 5));
 
-            renderAnimeList(anime, ganres);
             renderGanreList(ganres);
+            renderAnimeList(anime, ganres);
+
+            setTimeout(() => {
+                preloder.classList.remove('active');
+            }, 500);
 
         });
 
