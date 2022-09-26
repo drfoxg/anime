@@ -1,5 +1,4 @@
-
-const mainData = () => {
+const categoriesData = () => {
 
     const renderGanreList = (ganres) => {
         const dropdownBlock = document.querySelector('.header__menu .dropdown');
@@ -17,14 +16,14 @@ const mainData = () => {
         console.log('ganres: ', ganres);
         console.log('array: ', array);
 
-        const wrapper = document.querySelector('.product .col-lg-8');
+        const wrapper = document.querySelector('.product-page .col-lg-8');
 
         wrapper.innerHTML = '';
 
         ganres.forEach((ganre) => {
             const productBlock = document.createElement('div');
             const listBlock = document.createElement('div');
-            const list = array.filter(item => item.ganre === ganre);
+            const list = array.filter(item => item.tags.includes(ganre));
 
             listBlock.classList.add('row');
             productBlock.classList.add('mb-5');
@@ -105,6 +104,9 @@ const mainData = () => {
 
             const ganres = new Set();
 
+            const ganreParams = new URLSearchParams(window.location.search).get('ganre');
+
+
             anime.forEach((items) => {
                 ganres.add(items.ganre);
             });
@@ -112,11 +114,16 @@ const mainData = () => {
             // вывод первых 5 самых просматриваемых аниме на основе значения views
             renderTopAnime(anime.sort((a, b) => b.views - a.views).slice(0, 5));
 
-            renderAnimeList(anime, ganres);
+            if (ganreParams) {
+                renderAnimeList(anime, [ganreParams]);
+            } else {
+                renderAnimeList(anime, ganres);
+            }
+
             renderGanreList(ganres);
 
         });
 
-};
+}
 
-mainData();
+categoriesData();
